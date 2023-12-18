@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-const UpdateHouse = () => {
+const UpdateHouse = ({ url }) => {
   const { id } = useParams();
   const [houseType, setHouseType] = useState("");
   const [location, setLocation] = useState("");
@@ -17,15 +17,12 @@ const UpdateHouse = () => {
   useEffect(() => {
     const fetchHouse = async () => {
       try {
-        const response = await fetch(
-          `https://realestate-qfhq.onrender.com/houses/getOneHouse/${id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(url + `/houses/getOneHouse/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           setHouseType(data.houseType);
@@ -42,29 +39,26 @@ const UpdateHouse = () => {
       }
     };
     fetchHouse();
-  }, [token, id]);
+  }, [token, id, url]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `https://realestate-qfhq.onrender.com/houses/updateHouse/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            houseType,
-            location,
-            size,
-            price,
-            status,
-            availability,
-          }),
-        }
-      );
+      const response = await fetch(url + `/houses/updateHouse/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          houseType,
+          location,
+          size,
+          price,
+          status,
+          availability,
+        }),
+      });
       if (response.ok) {
         setMessage("House Updated Successfully");
         navigate("/admin");

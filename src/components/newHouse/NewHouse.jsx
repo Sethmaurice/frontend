@@ -3,7 +3,7 @@ import "./newhouse.css";
 import { Link } from "react-router-dom";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 
-const NewHouse = () => {
+const NewHouse = ({ url }) => {
   const [message, SetMessage] = useState("");
   const [error, setError] = useState("");
   const [fileName, setFileName] = useState("Choose file");
@@ -27,7 +27,8 @@ const NewHouse = () => {
 
     try {
       const response = await fetch(
-        "https://realestate-qfhq.onrender.com/houses/saveHouse",
+        // "https://realestate-qfhq.onrender.com/houses/saveHouse",
+        url + "/houses/saveHouse",
         {
           method: "POST",
           headers: {

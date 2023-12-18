@@ -13,7 +13,7 @@ const AllBookings = () => {
       try {
         const response = await fetch(
           // "https://realestate-qfhq.onrender.com/booking/allBookings",
-          "http://localhost:8080/booking/allBookings",
+          "http://localhost:5959/booking/allBookings",
           {
             method: "GET",
             headers: {
@@ -40,8 +40,8 @@ const AllBookings = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://realestate-qfhq.onrender.com/booking/deleteBooking/${id}`,
-        // `http://localhost:8080/booking/deleteBooking/${id}`,
+        // `https://realestate-qfhq.onrender.com/booking/deleteBooking/${id}`,
+        `http://localhost:5959/booking/deleteBooking/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -50,7 +50,7 @@ const AllBookings = () => {
         }
       );
       if (response.ok) {
-        setMessage("Booking Deleted");
+        setMessage("Booking Canceled");
         navigate("/admin");
       } else {
         console.log("failed");
@@ -101,7 +101,7 @@ const AllBookings = () => {
                     className="delete__btn"
                     onClick={() => handleDelete(booking.bkid)}
                   >
-                    delete
+                    Cancel
                   </button>
                 </div>
               </td>

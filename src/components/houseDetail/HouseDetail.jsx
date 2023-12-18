@@ -6,7 +6,7 @@ import { IoIosPricetags } from "react-icons/io";
 import "./houseDetail.css";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { jwtDecode } from "jwt-decode";
-const HouseDetail = () => {
+const HouseDetail = ({url}) => {
   const { id } = useParams();
   const [selectedHouse, setSelectedHouse] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,15 +15,12 @@ const HouseDetail = () => {
   useEffect(() => {
     const fetchHouse = async () => {
       try {
-        const response = await fetch(
-          `https://realestate-qfhq.onrender.com/houses/getOneHouse/${id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(url + `/houses/getOneHouse/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           setSelectedHouse(data);
@@ -37,7 +34,7 @@ const HouseDetail = () => {
       }
     };
     fetchHouse();
-  }, [token, id]);
+  }, [token, id, url]);
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -58,16 +55,13 @@ const HouseDetail = () => {
         return;
       }
       try {
-        const response = await fetch(
-          "https://realestate-qfhq.onrender.com/booking/saveBook",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-          }
-        );
+        const response = await fetch(url + "/booking/saveBook", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
         if (response.ok) {
           console.log("Booked Successfull");
           navigate("/houses");

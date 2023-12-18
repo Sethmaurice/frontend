@@ -5,37 +5,42 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
-const Login = () => {
+const Login = ({ url }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  if (isLoggedIn) {
+    console.log("already in");
+  } else {
+    //
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!username || !password) {
       setError("Email and Password are required");
     }
+
+    const config = {
+      method: "post",
+      url: url + "/users/authentication",
+      data: JSON.stringify({ username, password }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
     try {
-      const response = await fetch(
-        "https://realestate-qfhq.onrender.com/users/authentication",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
-      const data = await response.json();
-      if (response.ok) {
-        setToken(data.token);
+      const response = await axios(config);
+      if (response.status === 200) {
+        setToken(response.data.token);
       } else {
-        setError("Invalid Credentials");
+        setError("Invalid credentials");
       }
     } catch (error) {
       console.error("Login failed:", error);

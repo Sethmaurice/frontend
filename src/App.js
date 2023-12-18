@@ -35,21 +35,23 @@ function MainComponents() {
 }
 
 function App() {
+  const url = "http://localhost:5959";
+  // const url = https://realestate-qfhq.onrender.com;
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" index element={<MainComponents />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/signup" element={<SignUp />} />
+          <Route path="/" index element={<MainComponents url={url} />} />
+          <Route exact path="/login" element={<Login url={url} />} />
+          <Route exact path="/signup" element={<SignUp url={url} />} />
           <Route exact path="/unauthorized" element={<UnAuthorized />} />
-          <Route path="/logout" element={<Logout />} />
+          <Route path="/logout" element={<Logout url={url} />} />
           <Route
             exact
             path="/newHouse"
             element={
               <AdminRoute>
-                <NewHouse />
+                <NewHouse url={url} />
               </AdminRoute>
             }
           />
@@ -58,7 +60,7 @@ function App() {
             path="/updateHouse/:id"
             element={
               <AdminRoute>
-                <UpdateHouse />
+                <UpdateHouse url={url} />
               </AdminRoute>
             }
           />
@@ -67,7 +69,7 @@ function App() {
             path="/houses"
             element={
               <UserRoute>
-                <Houses />
+                <Houses url={url} />
               </UserRoute>
             }
           />
@@ -76,7 +78,7 @@ function App() {
             path="/house/:id"
             element={
               <UserRoute>
-                <HouseDetail />
+                <HouseDetail url={url} />
               </UserRoute>
             }
           />
@@ -85,7 +87,7 @@ function App() {
             path="/admin"
             element={
               <AdminRoute>
-                <AdminDashboard />
+                <AdminDashboard url={url} />
               </AdminRoute>
             }
           />

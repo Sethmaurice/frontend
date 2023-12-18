@@ -11,7 +11,8 @@ const AllUsers = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "https://realestate-qfhq.onrender.com/users/allUsers",
+          // "https://realestate-qfhq.onrender.com/users/allUsers",
+          "http://localhost:5959/users/allUsers",
           {
             method: "GET",
             headers: {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
-const SignUp = () => {
+import axios from "axios";
+const SignUp = ({ url }) => {
   const [names, setNames] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +15,6 @@ const SignUp = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
-  console.log("hello");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,28 +30,30 @@ const SignUp = () => {
       setError("Invalid Email");
       return;
     }
+
+    const data = { names, email, password, roles };
+    const config = {
+      method: "post",
+      url: url + "/users/register",
+      data: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
     try {
-      const response = await fetch(
-        "https://realestate-qfhq.onrender.com/users/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ names, email, password, roles }),
-        }
-      );
-      console.log(response);
-      if (response.ok) {
+      const response = await axios(config);
+      if (response.status === 200) {
         setMessage("sign up successfully");
         navigate("/login");
       } else {
-        setError("Sign Up failed" + error);
+        setError("Sign Up failed" + response.status);
       }
     } catch (error) {
       setError("something went wrong");
     }
   };
+
   return (
     <div className="signup__home sign__bg">
       <div className="signup__card">

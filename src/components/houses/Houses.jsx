@@ -5,7 +5,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import "./houses.css";
 import House from "../../containers/House";
 
-const Houses = () => {
+const Houses = ({ url }) => {
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("rent");
@@ -22,15 +22,12 @@ const Houses = () => {
   useEffect(() => {
     const fetchHouse = async () => {
       try {
-        const response = await fetch(
-          "https://realestate-qfhq.onrender.com/houses/getAllHouses",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(url + "/houses/getAllHouses", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           console.log(data);
@@ -45,7 +42,7 @@ const Houses = () => {
       }
     };
     fetchHouse();
-  }, [token]);
+  }, [token, url]);
 
   const filterByStatus = (status) => {
     setStatusFilter(status);

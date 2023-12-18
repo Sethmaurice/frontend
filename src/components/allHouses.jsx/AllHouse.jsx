@@ -13,7 +13,9 @@ const AllHouse = () => {
     const fetchHouse = async () => {
       try {
         const response = await fetch(
-          "https://realestate-qfhq.onrender.com/houses/getAllHouses",
+          // "https://realestate-qfhq.onrender.com/houses/getAllHouses",
+          "http://localhost:5959/houses/getAllHouses",
+          
           {
             method: "GET",
             headers: {
@@ -40,7 +42,8 @@ const AllHouse = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://realestate-qfhq.onrender.com/houses/deleteHouse/${id}`,
+        // `https://realestate-qfhq.onrender.com/houses/deleteHouse/${id}`,
+        `http://localhost:5959/houses/deleteHouse/${id}`,
         {
           method: "DELETE",
           headers: {
