@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./allhouse.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const AllHouse = () => {
+const AllHouse = ({ url }) => {
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [houseLength, setHouseLength] = useState(0);
@@ -13,9 +13,8 @@ const AllHouse = () => {
     const fetchHouse = async () => {
       try {
         const response = await fetch(
-          // "https://realestate-qfhq.onrender.com/houses/getAllHouses",
-          "http://localhost:5959/houses/getAllHouses",
-          
+          url + "/houses/getAllHouses",
+
           {
             method: "GET",
             headers: {
@@ -37,20 +36,16 @@ const AllHouse = () => {
       }
     };
     fetchHouse();
-  }, [token]);
+  }, [token, url]);
   sessionStorage.setItem("houseLength", houseLength);
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        // `https://realestate-qfhq.onrender.com/houses/deleteHouse/${id}`,
-        `http://localhost:5959/houses/deleteHouse/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(url + `/houses/deleteHouse/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setMessage("House Deleted");
         navigate("/admin");

@@ -35,8 +35,8 @@ function MainComponents() {
 }
 
 function App() {
-  const url = "http://localhost:5959";
-  // const url = https://realestate-qfhq.onrender.com;
+  // const url = "http://localhost:5959";
+  const url = "https://realestate-qfhq.onrender.com";
   return (
     <Router>
       <div className="App">

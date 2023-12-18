@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AllBookings = () => {
+const AllBookings = ({ url }) => {
   const [bookings, setBookings] = useState([]);
   const [allBookings, setAllBookings] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -11,16 +11,12 @@ const AllBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch(
-          // "https://realestate-qfhq.onrender.com/booking/allBookings",
-          "http://localhost:5959/booking/allBookings",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(url + "/booking/allBookings", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           setBookings(data);
@@ -35,20 +31,16 @@ const AllBookings = () => {
       }
     };
     fetchBookings();
-  }, [token]);
+  }, [token, url]);
   sessionStorage.setItem("bookings", allBookings);
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        // `https://realestate-qfhq.onrender.com/booking/deleteBooking/${id}`,
-        `http://localhost:5959/booking/deleteBooking/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(url + `/booking/deleteBooking/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setMessage("Booking Canceled");
         navigate("/admin");

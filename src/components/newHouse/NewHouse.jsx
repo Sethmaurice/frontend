@@ -27,7 +27,6 @@ const NewHouse = ({ url }) => {
 
     try {
       const response = await fetch(
-        // "https://realestate-qfhq.onrender.com/houses/saveHouse",
         url + "/houses/saveHouse",
         {
           method: "POST",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const AllUsers = () => {
+const AllUsers = ({ url }) => {
   const [users, setUsers] = useState([]);
   const [loading, setIsloading] = useState(true);
   const [userLength, setUserLength] = useState(0);
@@ -10,16 +10,12 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          // "https://realestate-qfhq.onrender.com/users/allUsers",
-          "http://localhost:5959/users/allUsers",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(url + "/users/allUsers", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           setUsers(data);
@@ -34,7 +30,7 @@ const AllUsers = () => {
       }
     };
     fetchUsers();
-  }, [token]);
+  }, [token, url]);
 
   const filteredByUser = roleByUser
     ? users.filter((user) => user.roles === roleByUser)

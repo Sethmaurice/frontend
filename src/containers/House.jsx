@@ -13,8 +13,6 @@ const House = ({
   size,
   price,
   status,
-  action,
-  OnHandleClick,
   houseId,
 }) => {
   return (
