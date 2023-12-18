@@ -48,7 +48,7 @@ const UpdateHouse = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:8080/houses/updateHouse/${id}`,
+        `https://realestate-qfhq.onrender.com/houses/updateHouse/${id}`,
         {
           method: "PUT",
           headers: {

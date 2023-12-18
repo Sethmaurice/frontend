@@ -12,7 +12,8 @@ const AllBookings = () => {
     const fetchBookings = async () => {
       try {
         const response = await fetch(
-          "https://realestate-qfhq.onrender.com/booking/allBookings",
+          // "https://realestate-qfhq.onrender.com/booking/allBookings",
+          "http://localhost:8080/booking/allBookings",
           {
             method: "GET",
             headers: {
@@ -40,6 +41,7 @@ const AllBookings = () => {
     try {
       const response = await fetch(
         `https://realestate-qfhq.onrender.com/booking/deleteBooking/${id}`,
+        // `http://localhost:8080/booking/deleteBooking/${id}`,
         {
           method: "DELETE",
           headers: {

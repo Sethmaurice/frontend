@@ -15,6 +15,8 @@ const SignUp = () => {
     return emailRegex.test(email);
   };
 
+  console.log("hello");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!names || !email || !password || !confirmPassword) {
@@ -40,6 +42,7 @@ const SignUp = () => {
           body: JSON.stringify({ names, email, password, roles }),
         }
       );
+      console.log(response);
       if (response.ok) {
         setMessage("sign up successfully");
         navigate("/login");
